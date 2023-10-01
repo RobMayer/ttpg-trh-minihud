@@ -1,11 +1,12 @@
 export const POINTER_TYPES = ["simple", "deco", "nouveau"] as const;
 export const POINTER_ALIGNMENTS = ["left", "right"] as const;
 
-export const BADGE_TYPES = ["shield"] as const;
 export const BAR_TYPES = ["bar", "circle", "diamond", "shield", "crown", "hexagon", "flame", "skull"] as const;
 export const BAR_EMPTY_MODES = ["hollow", "blank", "full", "empty"] as const;
 
 export const COLOR_REGEX = /^[#r]([a-f0-9]{3}|[a-f0-9]{4}|[a-f0-9]{6}|[a-f0-9]{8})$/i;
+
+export const BLANK_IMG = "https://raw.githubusercontent.com/RobMayer/ttpg-trh-ui/main/hosted/icons/blank.png";
 
 export type Store = {
     bars: number[];
@@ -35,12 +36,12 @@ export type Config = {
     }[];
     leftBadgeEnabled: boolean;
     leftBadge: {
-        type: (typeof BADGE_TYPES)[number];
+        url: string;
         color: string;
     };
     rightBadgeEnabled: boolean;
     rightBadge: {
-        type: (typeof BADGE_TYPES)[number];
+        url: string;
         color: string;
     };
 };
@@ -70,15 +71,15 @@ export type ConfigOptions = {
         justify?: "left" | "right";
     }[];
     leftBadge?:
-        | (typeof BADGE_TYPES)[number]
+        | string
         | {
-              type: (typeof BADGE_TYPES)[number];
+              url: string;
               color?: string;
           };
     rightBadge?:
-        | (typeof BADGE_TYPES)[number]
+        | string
         | {
-              type: (typeof BADGE_TYPES)[number];
+              url: string;
               color?: string;
           };
 };

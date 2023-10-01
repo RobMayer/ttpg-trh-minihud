@@ -1,5 +1,5 @@
 import { Accordian, PatternInput } from "ttpg-trh-ui";
-import { BADGE_TYPES, COLOR_REGEX, Config, Store } from "../types";
+import { BLANK_IMG, COLOR_REGEX, Config, Store } from "../types";
 import { boxChild, jsxInTTPG, parseColor, useRef } from "jsx-in-ttpg";
 import { Color, HorizontalAlignment, ImageWidget, VerticalAlignment } from "@tabletop-playground/api";
 
@@ -18,11 +18,7 @@ export const BadgeEditor = ({ config, which }: { config: Config; which: "Left" |
         >
             <horizontalbox gap={4} valign={VerticalAlignment.Center}>
                 <layout height={64} halign={HorizontalAlignment.Center}>
-                    <image
-                        ref={badgePreviewRef}
-                        color={config[`${key}Badge`].color}
-                        url={`https://raw.githubusercontent.com/RobMayer/ttpg-trh-ui/main/hosted/badges/${config[`${key}Badge`].type}.png`}
-                    />
+                    <image ref={badgePreviewRef} color={config[`${key}Badge`].color} url={config[`${key}Badge`].url === "" ? BLANK_IMG : config[`${key}Badge`].url} />
                 </layout>
                 {boxChild(
                     1,
@@ -33,12 +29,10 @@ export const BadgeEditor = ({ config, which }: { config: Config; which: "Left" |
                             </layout>
                             {boxChild(
                                 1,
-                                <select
-                                    value={config[`${key}Badge`].type}
-                                    options={[...BADGE_TYPES]}
-                                    onChange={(el, p, v) => {
-                                        config[`${key}Badge`].type = BADGE_TYPES[v];
-                                        badgePreviewRef.current?.setImageURL(`https://raw.githubusercontent.com/RobMayer/ttpg-trh-ui/main/hosted/badges/${BADGE_TYPES[v]}.png`);
+                                <input
+                                    value={config[`${key}Badge`].url}
+                                    onCommit={(el, p, v) => {
+                                        config[`${key}Badge`].url = v;
                                     }}
                                 />
                             )}

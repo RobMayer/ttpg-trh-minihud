@@ -63,15 +63,15 @@ this is fully typed, but here's a description of the config-options:
         justify?: "left" | "right"; // are the pips left or right aligned. No effect on bar-types.
     }[];
     leftBadge?: // left-aligned badge next to the bars.
-        | "shield" // just the badge type, color will be assumed to be "#fff"
+        | string // just the url - will assume that the color will be "#fff"
         | {
-              type: "shield"; // what kind of badge - only shield for now, but I'll be adding more.
+              url: string; // url of the badge
               color?: string; // color of the badge
           };
     rightBadge?: // right-alsigned badge next to the bars.
-        | "shield" // just the badge type, color will be assumed to be "#fff"
+        | string // just the url - will assume that the color will be "#fff"
         | {
-              type: "shield"; // what kind of badge - only shield for now, but I'll be adding more.
+              url: string; // url of the badge
               color?: string; // color of the badge
           };
 };

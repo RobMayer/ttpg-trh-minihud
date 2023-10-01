@@ -17,7 +17,7 @@ import { Modal, Tabs, icons } from "ttpg-trh-ui";
 import { BadgeEditor } from "./parts/badgeEditor";
 import { BarEditor } from "./parts/barEditor";
 import { PointerEditor } from "./parts/pointerEditor";
-import { ConfigOptions, BADGE_TYPES, Store, Config } from "./types";
+import { ConfigOptions, Store, Config, BLANK_IMG } from "./types";
 import { chunker } from "./util/chunker";
 
 const ucFirst = (str: string = "") => str.slice(0, 1).toUpperCase() + str.slice(1, str.length);
@@ -44,9 +44,9 @@ export type Controls = {
     decrement: (key: string) => boolean;
     setMax: (key: string, max: number) => void;
     setColor: (key: string, color: string, emptyColor?: string) => void;
-    setLeftBadge: (type: (typeof BADGE_TYPES)[number] | null) => void;
+    setLeftBadge: (url: string | null) => void;
     setLeftBadgeColor: (color: string) => void;
-    setRightBadge: (type: (typeof BADGE_TYPES)[number] | null) => void;
+    setRightBadge: (url: string | null) => void;
     setRightBadgeColor: (color: string) => void;
 };
 
@@ -112,32 +112,32 @@ export const RegisterHUD = (obj: GameObject, init: ConfigOptions = DEFAULT_CONFI
         leftBadge:
             init.leftBadge === undefined
                 ? {
-                      type: "shield",
+                      url: "",
                       color: "#fff",
                   }
                 : typeof init.leftBadge === "string"
                 ? {
-                      type: init.leftBadge,
+                      url: init.leftBadge,
                       color: "#fff",
                   }
                 : {
-                      type: init.leftBadge.type,
+                      url: init.leftBadge.url,
                       color: init.leftBadge?.color ?? "#fff",
                   },
         rightBadgeEnabled: init.rightBadge !== undefined,
         rightBadge:
             init.rightBadge === undefined
                 ? {
-                      type: "shield",
+                      url: "",
                       color: "#fff",
                   }
                 : typeof init.rightBadge === "string"
                 ? {
-                      type: init.rightBadge,
+                      url: init.rightBadge,
                       color: "#fff",
                   }
                 : {
-                      type: init.rightBadge.type,
+                      url: init.rightBadge.url,
                       color: init.rightBadge?.color ?? "#fff",
                   },
     };
@@ -292,15 +292,15 @@ export const RegisterHUD = (obj: GameObject, init: ConfigOptions = DEFAULT_CONFI
             }
             return false;
         },
-        setLeftBadge: (type) => {
-            if (type === null) {
+        setLeftBadge: (url) => {
+            if (url === null) {
                 config.leftBadgeEnabled = false;
-                repaint();
-            } else if (BADGE_TYPES.includes(type)) {
+            } else {
                 config.leftBadgeEnabled = true;
-                config.leftBadge.type = type;
+                config.leftBadge.url = url;
                 repaint();
             }
+            repaint();
         },
         setLeftBadgeColor: (color) => {
             const clr = parseColor(color);
@@ -309,13 +309,13 @@ export const RegisterHUD = (obj: GameObject, init: ConfigOptions = DEFAULT_CONFI
                 repaint();
             }
         },
-        setRightBadge: (type) => {
-            if (type === null) {
+        setRightBadge: (url) => {
+            if (url === null) {
                 config.rightBadgeEnabled = false;
                 repaint();
-            } else if (BADGE_TYPES.includes(type)) {
+            } else {
                 config.rightBadgeEnabled = true;
-                config.rightBadge.type = type;
+                config.rightBadge.url = url;
                 repaint();
             }
         },
@@ -407,7 +407,7 @@ export const RegisterHUD = (obj: GameObject, init: ConfigOptions = DEFAULT_CONFI
         return (
             <verticalbox halign={HorizontalAlignment.Left}>
                 <horizontalbox valign={VerticalAlignment.Center} halign={HorizontalAlignment.Fill} gap={8}>
-                    {config.leftBadgeEnabled && <image color={config.leftBadge.color} url={`https://raw.githubusercontent.com/RobMayer/ttpg-trh-ui/main/hosted/badges/${config.leftBadge.type}.png`} />}
+                    {config.leftBadgeEnabled && <image color={config.leftBadge.color} url={config.leftBadge.url === "" ? BLANK_IMG : config.leftBadge.url} />}
                     <layout width={256} hidden={config.bars.length === 0}>
                         <verticalbox halign={HorizontalAlignment.Fill}>
                             <verticalbox halign={HorizontalAlignment.Fill} gap={2} ref={barlistRef}>
@@ -511,9 +511,7 @@ export const RegisterHUD = (obj: GameObject, init: ConfigOptions = DEFAULT_CONFI
                             </verticalbox>
                         </verticalbox>
                     </layout>
-                    {config.rightBadgeEnabled && (
-                        <image color={config.rightBadge.color} url={`https://raw.githubusercontent.com/RobMayer/ttpg-trh-ui/main/hosted/badges/${config.rightBadge.type}.png`} />
-                    )}
+                    {config.rightBadgeEnabled && <image color={config.rightBadge.color} url={config.rightBadge.url === "" ? BLANK_IMG : config.rightBadge.url} />}
                 </horizontalbox>
                 {config.pointerEnabled ? (
                     <image
