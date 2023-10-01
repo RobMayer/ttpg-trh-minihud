@@ -407,7 +407,7 @@ export const RegisterHUD = (obj: GameObject, init: ConfigOptions = DEFAULT_CONFI
         return (
             <verticalbox halign={HorizontalAlignment.Left}>
                 <horizontalbox valign={VerticalAlignment.Center} halign={HorizontalAlignment.Fill} gap={8}>
-                    {config.leftBadgeEnabled && <image color={config.leftBadge.color} url={config.leftBadge.url === "" ? BLANK_IMG : config.leftBadge.url} />}
+                    {config.leftBadgeEnabled && <image width={64} color={config.leftBadge.color} url={config.leftBadge.url === "" ? BLANK_IMG : config.leftBadge.url} />}
                     <layout width={256} hidden={config.bars.length === 0}>
                         <verticalbox halign={HorizontalAlignment.Fill}>
                             <verticalbox halign={HorizontalAlignment.Fill} gap={2} ref={barlistRef}>
@@ -511,7 +511,7 @@ export const RegisterHUD = (obj: GameObject, init: ConfigOptions = DEFAULT_CONFI
                             </verticalbox>
                         </verticalbox>
                     </layout>
-                    {config.rightBadgeEnabled && <image color={config.rightBadge.color} url={config.rightBadge.url === "" ? BLANK_IMG : config.rightBadge.url} />}
+                    {config.rightBadgeEnabled && <image width={64} color={config.rightBadge.color} url={config.rightBadge.url === "" ? BLANK_IMG : config.rightBadge.url} />}
                 </horizontalbox>
                 {config.pointerEnabled ? (
                     <image

@@ -25,7 +25,7 @@ export const BadgeEditor = ({ config, which }: { config: Config; which: "Left" |
                     <verticalbox gap={8}>
                         <horizontalbox gap={4}>
                             <layout width={96} halign={HorizontalAlignment.Right}>
-                                Type:
+                                URL:
                             </layout>
                             {boxChild(
                                 1,
