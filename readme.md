@@ -78,9 +78,7 @@ this is fully typed, but here's a description of the config-options:
 
 ```
 
-if you want me to add more badges let me know - even better if you send me a 128x128 all-white (or white with black details I guess?) PNG with transparent background, and I'll add it in.
-
-for additional pips, the process is slightly more involved - the ones that are there right now are derived from font-awesome. I'll be trying my hand at pulling in SVGs from Game-Icons.net, too - my point is that I need flattened single-path SVGs to make badges, if you want me to add something.
+If you have a request for a new pip-style bar type, the process is slightly involved - the ones that are there right now are derived from font-awesome. I'll be trying my hand at pulling in SVGs from Game-Icons.net, too - my point is that I need flattened single-path SVGs to make badges, if you want me to add something.
 
 for scripters, you can also access the hud controls on an object registered with the HUD like this.
 
@@ -100,9 +98,9 @@ export type Controls = {
     decrement: (key: string) => boolean;
     setMax: (key: string, max: number) => void;
     setColor: (key: string, color: string, emptyColor?: string) => void;
-    setLeftBadge: (type: (typeof BADGE_TYPES)[number] | null) => void;
+    setLeftBadge: (type: string | null) => void;
     setLeftBadgeColor: (color: string) => void;
-    setRightBadge: (type: (typeof BADGE_TYPES)[number] | null) => void;
+    setRightBadge: (url: string | null) => void;
     setRightBadgeColor: (color: string) => void;
 };
 ```
