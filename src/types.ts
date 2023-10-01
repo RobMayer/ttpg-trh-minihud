@@ -8,6 +8,18 @@ export const COLOR_REGEX = /^[#r]([a-f0-9]{3}|[a-f0-9]{4}|[a-f0-9]{6}|[a-f0-9]{8
 
 export const BLANK_IMG = "https://raw.githubusercontent.com/RobMayer/ttpg-trh-ui/main/hosted/icons/blank.png";
 
+export type Controls = {
+    set: (key: string, value: number) => boolean;
+    increment: (key: string) => boolean;
+    decrement: (key: string) => boolean;
+    setMax: (key: string, max: number) => void;
+    setColor: (key: string, color: string, emptyColor?: string) => void;
+    setLeftBadge: (url: string | null) => void;
+    setLeftBadgeColor: (color: string) => void;
+    setRightBadge: (url: string | null) => void;
+    setRightBadgeColor: (color: string) => void;
+};
+
 export type Store = {
     bars: number[];
 };

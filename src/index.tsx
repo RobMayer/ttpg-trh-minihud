@@ -1,3 +1,5 @@
+export { ConfigOptions, Controls } from "./types";
+
 import {
     GameObject,
     HorizontalAlignment,
@@ -17,7 +19,7 @@ import { Modal, Tabs, icons } from "ttpg-trh-ui";
 import { BadgeEditor } from "./parts/badgeEditor";
 import { BarEditor } from "./parts/barEditor";
 import { PointerEditor } from "./parts/pointerEditor";
-import { ConfigOptions, Store, Config, BLANK_IMG } from "./types";
+import { ConfigOptions, Store, Config, BLANK_IMG, Controls } from "./types";
 import { chunker } from "./util/chunker";
 
 const ucFirst = (str: string = "") => str.slice(0, 1).toUpperCase() + str.slice(1, str.length);
@@ -37,18 +39,6 @@ const DEFAULT_CONFIG: ConfigOptions = {
 };
 
 const STORAGE: { [key: string]: Controls } = {};
-
-export type Controls = {
-    set: (key: string, value: number) => boolean;
-    increment: (key: string) => boolean;
-    decrement: (key: string) => boolean;
-    setMax: (key: string, max: number) => void;
-    setColor: (key: string, color: string, emptyColor?: string) => void;
-    setLeftBadge: (url: string | null) => void;
-    setLeftBadgeColor: (color: string) => void;
-    setRightBadge: (url: string | null) => void;
-    setRightBadgeColor: (color: string) => void;
-};
 
 export const HUDControls = (obj: GameObject): Controls | undefined => {
     return STORAGE[obj.getId()];
