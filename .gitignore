@@ -1,0 +1,17 @@
+/node_modules
+
+# production
+
+/build
+/lib
+/dist
+
+# local build for development
+
+/dev
+
+# misc
+
+.DS_Store
+
+ttpgcfg.local.json
