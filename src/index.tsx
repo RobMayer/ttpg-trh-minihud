@@ -142,7 +142,6 @@ export const RegisterHUD = (obj: GameObject, init: ConfigOptions = DEFAULT_CONFI
     const wrapperRef = useRef<LayoutBox>();
     const barlistRef = useRef<VerticalBox>();
     const valuelistRef = useRef<VerticalBox>();
-    const barlistHandle = useRef<{ refresh: () => void; setPopulator: () => {} }>();
 
     const updateBar = (idx: number) => {
         const { type: barType, max } = config.bars[idx];
@@ -550,7 +549,7 @@ export const RegisterHUD = (obj: GameObject, init: ConfigOptions = DEFAULT_CONFI
                             obj.updateUI(ui);
                             switchRef.current?.setActiveIndex(0);
                         }}
-                        buttons={[
+                        footer={[
                             <button
                                 onClick={() => {
                                     saveConfig(config);
@@ -572,7 +571,7 @@ export const RegisterHUD = (obj: GameObject, init: ConfigOptions = DEFAULT_CONFI
                                 {buildValues()}
                             </verticalbox>
                             <verticalbox>
-                                <BarEditor handle={barlistHandle} config={config} store={store} repaint={repaint} />
+                                <BarEditor config={config} store={store} repaint={repaint} />
                             </verticalbox>
                             <layout padding={8}>
                                 <horizontalbox gap={16} halign={HorizontalAlignment.Fill}>

@@ -1,7 +1,7 @@
 import { Accordian, PatternInput } from "ttpg-trh-ui";
-import { BADGE_TYPES, COLOR_REGEX, Config, POINTER_ALIGNMENTS, POINTER_TYPES, Store } from "../types";
-import { boxChild, jsxInTTPG, parseColor, useRef } from "jsx-in-ttpg";
-import { Color, HorizontalAlignment, ImageWidget, VerticalAlignment } from "@tabletop-playground/api";
+import { COLOR_REGEX, Config, POINTER_ALIGNMENTS, POINTER_TYPES } from "../types";
+import { boxChild, jsxInTTPG } from "jsx-in-ttpg";
+import { HorizontalAlignment } from "@tabletop-playground/api";
 
 export const PointerEditor = ({ config }: { config: Config }) => {
     return (
