@@ -11,9 +11,12 @@ export const chunker = <T>(obj: GameObject, key: string) => {
         }
         const chunks = chunkString(toSave, 1000);
         obj.setSavedData(JSON.stringify({ version, chunks: chunks.length, size: 1000 }), key);
-        chunks.forEach((chunk, i) => {
-            obj.setSavedData(chunk, `${key}[${i}]`);
-        });
+        Array(63)
+            .fill("")
+            .splice(0, chunks.length, ...chunks)
+            .forEach((chunk, i) => {
+                obj.setSavedData(chunk, `${key}[${i}]`);
+            });
         return true;
     };
 

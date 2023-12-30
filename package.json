@@ -1,6 +1,6 @@
 {
     "name": "ttpg-trh-minihud",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "",
     "main": "dist/index.js",
     "module": "dist/index.mjs",
@@ -17,12 +17,12 @@
     "author": "",
     "license": "ISC",
     "devDependencies": {
-        "tsup": "^7.2.0",
-        "typescript": "^5.2.2"
+        "tsup": "^8.0.1",
+        "typescript": "^5.3.3"
     },
     "dependencies": {
-        "@tabletop-playground/api": "^0.38.0",
-        "jsx-in-ttpg": "^2.0.2",
-        "ttpg-trh-ui": "^1.2.2"
+        "@tabletop-playground/api": "^0.39.0",
+        "jsx-in-ttpg": "^2.2.2",
+        "ttpg-trh-ui": "^1.2.6"
     }
 }
