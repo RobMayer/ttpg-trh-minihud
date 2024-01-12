@@ -1,6 +1,6 @@
 {
     "name": "ttpg-trh-minihud",
-    "version": "0.0.6",
+    "version": "0.0.7",
     "description": "",
     "main": "dist/index.js",
     "module": "dist/index.mjs",
@@ -23,6 +23,7 @@
     "dependencies": {
         "@tabletop-playground/api": "^0.39.0",
         "jsx-in-ttpg": "^2.2.2",
-        "ttpg-trh-ui": "^1.2.6"
+        "ttpg-trh-icons": "^1.1.0",
+        "ttpg-trh-ui": "^2.0.0"
     }
 }

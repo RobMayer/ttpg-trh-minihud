@@ -15,12 +15,43 @@ import {
     WidgetSwitcher,
 } from "@tabletop-playground/api";
 import { boxChild, jsxInTTPG, parseColor, render, useRef } from "jsx-in-ttpg";
-import { Modal, Tabs, icons } from "ttpg-trh-ui";
+import { Modal, Tabs } from "ttpg-trh-ui";
 import { BadgeEditor } from "./parts/badgeEditor";
 import { BarEditor } from "./parts/barEditor";
 import { PointerEditor } from "./parts/pointerEditor";
 import { ConfigOptions, Store, Config, BLANK_IMG, Controls } from "./types";
 import { chunker } from "./util/chunker";
+import icons from "ttpg-trh-icons";
+
+const PIPS = {
+    circle: "https://raw.githubusercontent.com/RobMayer/ttpg-trh-ui/main/hosted/icons/pips/circle.png",
+    circleEmpty: "https://raw.githubusercontent.com/RobMayer/ttpg-trh-ui/main/hosted/icons/pips/circle-empty.png",
+    circleHollow: "https://raw.githubusercontent.com/RobMayer/ttpg-trh-ui/main/hosted/icons/pips/circle-hollow.png",
+
+    diamond: "https://raw.githubusercontent.com/RobMayer/ttpg-trh-ui/main/hosted/icons/pips/diamond.png",
+    diamondEmpty: "https://raw.githubusercontent.com/RobMayer/ttpg-trh-ui/main/hosted/icons/pips/diamond-empty.png",
+    diamondHollow: "https://raw.githubusercontent.com/RobMayer/ttpg-trh-ui/main/hosted/icons/pips/diamond-hollow.png",
+
+    shield: "https://raw.githubusercontent.com/RobMayer/ttpg-trh-ui/main/hosted/icons/pips/shield.png",
+    shieldEmpty: "https://raw.githubusercontent.com/RobMayer/ttpg-trh-ui/main/hosted/icons/pips/shield-empty.png",
+    shieldHollow: "https://raw.githubusercontent.com/RobMayer/ttpg-trh-ui/main/hosted/icons/pips/shield-hollow.png",
+
+    crown: "https://raw.githubusercontent.com/RobMayer/ttpg-trh-ui/main/hosted/icons/pips/crown.png",
+    crownEmpty: "https://raw.githubusercontent.com/RobMayer/ttpg-trh-ui/main/hosted/icons/pips/crown-empty.png",
+    crownHollow: "https://raw.githubusercontent.com/RobMayer/ttpg-trh-ui/main/hosted/icons/pips/crown-hollow.png",
+
+    hexagon: "https://raw.githubusercontent.com/RobMayer/ttpg-trh-ui/main/hosted/icons/pips/hexagon.png",
+    hexagonEmpty: "https://raw.githubusercontent.com/RobMayer/ttpg-trh-ui/main/hosted/icons/pips/hexagon-empty.png",
+    hexagonHollow: "https://raw.githubusercontent.com/RobMayer/ttpg-trh-ui/main/hosted/icons/pips/hexagon-hollow.png",
+
+    flame: "https://raw.githubusercontent.com/RobMayer/ttpg-trh-ui/main/hosted/icons/pips/flame.png",
+    flameEmpty: "https://raw.githubusercontent.com/RobMayer/ttpg-trh-ui/main/hosted/icons/pips/flame-empty.png",
+    flameHollow: "https://raw.githubusercontent.com/RobMayer/ttpg-trh-ui/main/hosted/icons/pips/flame-hollow.png",
+
+    skull: "https://raw.githubusercontent.com/RobMayer/ttpg-trh-ui/main/hosted/icons/pips/skull.png",
+    skullEmpty: "https://raw.githubusercontent.com/RobMayer/ttpg-trh-ui/main/hosted/icons/pips/skull-empty.png",
+    skullHollow: "https://raw.githubusercontent.com/RobMayer/ttpg-trh-ui/main/hosted/icons/pips/skull-hollow.png",
+};
 
 const ucFirst = (str: string = "") => str.slice(0, 1).toUpperCase() + str.slice(1, str.length);
 
@@ -173,13 +204,11 @@ export const RegisterHUD = (obj: GameObject, init: ConfigOptions = DEFAULT_CONFI
                 [
                     ...Array(value)
                         .fill(0)
-                        .map(() => <image height={bar.large ? 24 : 16} url={icons.pips[barType]} color={bar.color} />),
+                        .map(() => <image height={bar.large ? 24 : 16} url={PIPS[barType]} color={bar.color} />),
                     ...(bar.emptyMode !== "blank"
                         ? Array(bar.max - value)
                               .fill(0)
-                              .map(() => (
-                                  <image height={bar.large ? 24 : 16} url={icons.pips[(barType + ucFirst(bar.emptyMode as string)) as keyof typeof icons.pips]} color={bar.emptyColor ?? bar.color} />
-                              ))
+                              .map(() => <image height={bar.large ? 24 : 16} url={PIPS[(barType + ucFirst(bar.emptyMode as string)) as keyof typeof PIPS]} color={bar.emptyColor ?? bar.color} />)
                         : []),
                 ].map((el) => {
                     boxWrapper.addChild(render(el));
@@ -192,11 +221,11 @@ export const RegisterHUD = (obj: GameObject, init: ConfigOptions = DEFAULT_CONFI
                 [
                     ...Array(value)
                         .fill(0)
-                        .map(() => <image height={16} url={icons.pips[barType]} color={bar.color} />),
+                        .map(() => <image height={16} url={PIPS[barType]} color={bar.color} />),
                     ...(bar.emptyMode !== "blank"
                         ? Array(bar.max - value)
                               .fill(0)
-                              .map(() => <image height={16} url={icons.pips[(barType + ucFirst(bar.emptyMode as string)) as keyof typeof icons.pips]} color={bar.emptyColor ?? bar.color} />)
+                              .map(() => <image height={16} url={PIPS[(barType + ucFirst(bar.emptyMode as string)) as keyof typeof PIPS]} color={bar.emptyColor ?? bar.color} />)
                         : []),
                 ].map((el) => {
                     innerBar.addChild(render(el));
@@ -336,14 +365,14 @@ export const RegisterHUD = (obj: GameObject, init: ConfigOptions = DEFAULT_CONFI
                                 {[
                                     ...Array(store.bars[i] ?? config.bars[i].max)
                                         .fill(0)
-                                        .map(() => <image height={16} url={icons.pips[barType]} color={bar.color} />),
+                                        .map(() => <image height={16} url={PIPS[barType]} color={bar.color} />),
                                     ...(emptyMode !== "blank"
                                         ? Array(bar.max - (store.bars[i] ?? config.bars[i].max))
                                               .fill(0)
                                               .map(() => (
                                                   <image
                                                       height={16}
-                                                      url={icons.pips[emptyMode === "full" ? barType : ((barType + ucFirst(emptyMode as string)) as keyof typeof icons.pips)]}
+                                                      url={PIPS[emptyMode === "full" ? barType : ((barType + ucFirst(emptyMode as string)) as keyof typeof PIPS)]}
                                                       color={bar.emptyColor ?? bar.color}
                                                   />
                                               ))
@@ -447,16 +476,14 @@ export const RegisterHUD = (obj: GameObject, init: ConfigOptions = DEFAULT_CONFI
                                                             {[
                                                                 ...Array(value)
                                                                     .fill(0)
-                                                                    .map(() => <image height={bar.large ? 24 : 16} url={icons.pips[barType]} color={bar.color} />),
+                                                                    .map(() => <image height={bar.large ? 24 : 16} url={PIPS[barType]} color={bar.color} />),
                                                                 ...(emptyMode !== "blank"
                                                                     ? Array(bar.max - value)
                                                                           .fill(0)
                                                                           .map(() => (
                                                                               <image
                                                                                   height={bar.large ? 24 : 16}
-                                                                                  url={
-                                                                                      icons.pips[emptyMode === "full" ? barType : ((barType + ucFirst(emptyMode as string)) as keyof typeof icons.pips)]
-                                                                                  }
+                                                                                  url={PIPS[emptyMode === "full" ? barType : ((barType + ucFirst(emptyMode as string)) as keyof typeof PIPS)]}
                                                                                   color={bar.emptyColor ?? bar.color}
                                                                               />
                                                                           ))
@@ -479,14 +506,14 @@ export const RegisterHUD = (obj: GameObject, init: ConfigOptions = DEFAULT_CONFI
                                                     {[
                                                         ...Array(value)
                                                             .fill(0)
-                                                            .map(() => <image height={bar.large ? 32 : 24} url={icons.pips[barType]} color={bar.color} />),
+                                                            .map(() => <image height={bar.large ? 32 : 24} url={PIPS[barType]} color={bar.color} />),
                                                         ...(emptyMode !== "blank"
                                                             ? Array(bar.max - value)
                                                                   .fill(0)
                                                                   .map(() => (
                                                                       <image
                                                                           height={bar.large ? 32 : 24}
-                                                                          url={icons.pips[emptyMode === "full" ? barType : ((barType + ucFirst(emptyMode as string)) as keyof typeof icons.pips)]}
+                                                                          url={PIPS[emptyMode === "full" ? barType : ((barType + ucFirst(emptyMode as string)) as keyof typeof PIPS)]}
                                                                           color={bar.emptyColor ?? bar.color}
                                                                       />
                                                                   ))

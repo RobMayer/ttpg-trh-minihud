@@ -1,7 +1,8 @@
 import { TextJustification, HorizontalAlignment, SelectionBox, TextBox, CheckBox } from "@tabletop-playground/api";
 import { jsxInTTPG, boxChild, RefObject, useRef } from "jsx-in-ttpg";
-import { DynamicList, DynamicListRef, Frame, icons, PatternInput } from "ttpg-trh-ui";
+import { DynamicList, DynamicListRef, Frame, PatternInput } from "ttpg-trh-ui";
 import { Store, Config, BAR_TYPES, COLOR_REGEX, BAR_EMPTY_MODES, POINTER_ALIGNMENTS } from "../types";
+import icons from "ttpg-trh-icons";
 
 export const BarEditor = ({ config, store, repaint }: { store: Store; config: Config; repaint: () => void }) => {
     const ref = useRef<DynamicListRef>();
